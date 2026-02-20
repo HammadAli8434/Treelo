@@ -33,7 +33,7 @@ export default function BoardColumn({
 }: BoardColumnProps) {
   return (
     <SortableBoard id={`board-${board.id}`}>
-      <div className="min-w-[320px] max-w-[320px] h-[430px] rounded-2xl bg-slate-200 border border-slate-300 p-5 flex flex-col">
+      <div className="min-w-[280px] sm:min-w-[320px] max-w-[320px] h-[350px] sm:h-[430px] rounded-2xl bg-slate-200 border border-slate-300 p-5 flex flex-col">
         <h3 className="mb-4 text-lg font-semibold text-center bg-blue-800 bg-clip-text text-transparent">
           {board.name.toUpperCase()}
         </h3>

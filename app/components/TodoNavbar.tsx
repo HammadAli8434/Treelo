@@ -34,7 +34,7 @@ export default function TodoNavbar({
             value={todoText}
             onChange={(e) => onTodoTextChange(e.target.value)}
             placeholder="Enter Here"
-            className="rounded-lg border border-black-800 px-4 py-2 text-sm w-56"
+            className="rounded-lg border border-black-800 px-4 py-2 text-sm w-full sm:w-56"
           />
           <select
             value={selectedBoardId ?? ""}
@@ -49,20 +49,20 @@ export default function TodoNavbar({
           </select>
           <button
             onClick={onAddTodo}
-            className="px-5 py-2 rounded-lg bg-blue-600 text-white text-sm shadow-md cursor-pointer"
+            className="px-3 sm:px-5 py-2 rounded-lg bg-blue-600 text-white text-xs sm:text-sm shadow-md cursor-pointer"
           >
             Add Todo
           </button>
           <button
             onClick={onAddBoardClick}
-            className="px-5 py-2 rounded-lg bg-blue-600 text-white text-sm shadow-md cursor-pointer"
+            className="px-3 sm:px-5 py-2 rounded-lg bg-blue-600 text-white text-xs sm:text-sm shadow-md cursor-pointer"
           >
             Add board
           </button>
           {onSignOut && (
             <button
               onClick={onSignOut}
-              className="px-4 py-2 rounded-lg border border-slate-300 text-white text-sm shadow-sm cursor-pointer bg-blue-600"
+              className="px-3 sm:px-4 py-2 rounded-lg border border-slate-300 text-white text-xs sm:text-sm shadow-sm cursor-pointer bg-blue-600"
             >
               Sign out
             </button>

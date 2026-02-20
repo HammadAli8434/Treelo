@@ -19,7 +19,7 @@ export default function AddBoardModal({
   
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-xl p-6 w-80 shadow-xl">
+      <div className="bg-white rounded-xl p-4 sm:p-6 w-full max-w-sm mx-4 shadow-xl">
         <h2 className="text-lg font-semibold mb-4">Add New Board</h2>
         <input
           value={newBoardName}

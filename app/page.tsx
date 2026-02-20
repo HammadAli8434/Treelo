@@ -419,12 +419,12 @@ export default function Page() {
           }}
         />
 
-        <div className="px-6 py-10">
+        <div className="px-4 sm:px-6 py-6 sm:py-10">
           <SortableContext
             items={boardIds}
             strategy={horizontalListSortingStrategy}
           >
-            <div className="flex gap-6 overflow-x-auto pb-8">
+            <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-8">
               {boards.map((board) => (
                 <BoardColumn
                   key={board.id}
