@@ -1,23 +1,27 @@
 "use client";
 
+import type { Board } from "../page";
+
 type TodoNavbarProps = {
-  todo: string;
-  onTodoChange: (value: string) => void;
-  selectedCard: string;
-  boards: string[];
-  onSelectedCardChange: (value: string) => void;
+  todoText: string;
+  onTodoTextChange: (value: string) => void;
+  selectedBoardId: number | null;
+  boards: Board[];
+  onSelectedBoardChange: (id: number) => void;
   onAddTodo: () => void;
   onAddBoardClick: () => void;
+  onSignOut?: () => void;
 };
 
 export default function TodoNavbar({
-  todo,
-  onTodoChange,
-  selectedCard,
+  todoText,
+  onTodoTextChange,
+  selectedBoardId,
   boards,
-  onSelectedCardChange,
+  onSelectedBoardChange,
   onAddTodo,
   onAddBoardClick,
+  onSignOut,
 }: TodoNavbarProps) {
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/70 border-b border-gray-200">
@@ -27,19 +31,19 @@ export default function TodoNavbar({
         </h1>
         <div className="flex flex-wrap gap-3 items-center">
           <input
-            value={todo}
-            onChange={(e) => onTodoChange(e.target.value)}
+            value={todoText}
+            onChange={(e) => onTodoTextChange(e.target.value)}
             placeholder="Enter Here"
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm w-56"
+            className="rounded-lg border border-black-800 px-4 py-2 text-sm w-56"
           />
           <select
-            value={selectedCard}
-            onChange={(e) => onSelectedCardChange(e.target.value)}
-            className="rounded-lg border border-gray-300 bg-blue-600 px-4 py-2 text-sm cursor-pointer text-white"
+            value={selectedBoardId ?? ""}
+            onChange={(e) => onSelectedBoardChange(Number(e.target.value))}
+            className="rounded-lg bg-blue-600 px-4 py-2 text-sm cursor-pointer text-white"
           >
-            {boards.map((card) => (
-              <option key={card} value={card}>
-                {card.toUpperCase()}
+            {boards.map((board) => (
+              <option key={board.id} value={board.id}>
+                {board.name.toUpperCase()}
               </option>
             ))}
           </select>
@@ -55,9 +59,16 @@ export default function TodoNavbar({
           >
             Add board
           </button>
+          {onSignOut && (
+            <button
+              onClick={onSignOut}
+              className="px-4 py-2 rounded-lg border border-slate-300 text-white text-sm shadow-sm cursor-pointer bg-blue-600"
+            >
+              Sign out
+            </button>
+          )}
         </div>
       </div>
     </nav>
   );
-}
-
+};

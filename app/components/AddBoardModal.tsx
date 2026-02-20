@@ -16,7 +16,7 @@ export default function AddBoardModal({
   onConfirm,
 }: AddBoardModalProps) {
   if (!show) return null;
-
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="bg-white rounded-xl p-6 w-80 shadow-xl">
@@ -44,5 +44,4 @@ export default function AddBoardModal({
       </div>
     </div>
   );
-}
-
+};
