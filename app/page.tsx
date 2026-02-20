@@ -77,7 +77,7 @@ export default function Page() {
 
   useEffect(() => {
     let isMounted = true;
-
+    
     const loadForUser = async () => {
       try {
         const { data: sessionData, error: sessionError } =
@@ -351,7 +351,7 @@ export default function Page() {
         return [...others, ...updatedTodos];
       });
 
-      // Persist
+    
       const updates = updatedTodos.map((t) => ({
         id: t.id,
         board_id: t.board_id,

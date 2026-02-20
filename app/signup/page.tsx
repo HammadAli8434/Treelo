@@ -1,25 +1,25 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabaseClient";
-
 export default function SignupPage() {
-  const router = useRouter();
 
+  const router = useRouter();
   const [checkingSession, setCheckingSession] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);  
   
   useEffect(() => {
     let isMounted = true;
     const check = async () => {
       const { data } = await supabase.auth.getSession();
-      if (!isMounted) return;
+        if (!isMounted) return;
       if (data.session) router.replace("/");
-      setCheckingSession(false);
+      setCheckingSession(false);                        
     };
     check();
     return () => {
@@ -33,7 +33,7 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
     setMessage(null);
-    
+
     try {
       if (password.length < 6) {
         setError("Password must be at least 6 characters.");
@@ -63,15 +63,7 @@ export default function SignupPage() {
       setLoading(false);
     }
   };
-
-  if (checkingSession) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="text-sm text-slate-600">Loading…</div>
-      </div>
-    );
-  }
-
+ 
   return (
     <div className="min-h-screen flex items-center justify-center bg-purple-700 from-blue-100 via-indigo-100 to-purple-100 px-6">
       <div className="w-full max-w-md rounded-2xl bg-white border border-slate-200 shadow-sm p-6">

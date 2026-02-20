@@ -8,7 +8,7 @@ type AddBoardModalProps = {
   onConfirm: () => void;
 };
 
-export default function AddBoardModal({
+export default function AddBoardModal({  
   show,
   newBoardName,
   onNewBoardNameChange,

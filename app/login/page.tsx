@@ -59,14 +59,6 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
-
-  if (checkingSession) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="text-sm text-slate-600">Loading…</div>
-      </div>
-    );
-  }
   
   return (
     <div className="min-h-screen flex items-center justify-center bg-purple-700 from-blue-100 via-indigo-100 to-purple-100 px-6">
