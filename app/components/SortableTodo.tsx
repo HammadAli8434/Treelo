@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import type { Todo } from "../page";
+import type { Todo } from "../../lib/types";
 
 type SortableTodoProps = {
   id: string;

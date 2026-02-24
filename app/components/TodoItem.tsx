@@ -2,7 +2,7 @@
 
 import { FaEdit, FaTrash } from "react-icons/fa";
 import SortableTodo from "./SortableTodo";
-import type { Todo } from "../page";
+import type { Todo } from "../../lib/types";
 
 type TodoItemProps = {
     todo: Todo;

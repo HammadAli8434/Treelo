@@ -1,7 +1,7 @@
 "use client";
 
 import { DragOverlay } from "@dnd-kit/core";
-import type { Board, Todo } from "../page";
+import type { Board, Todo } from "../../lib/types";
 
 type BoardOverlaysProps = {
     activeBoard: Board | null;

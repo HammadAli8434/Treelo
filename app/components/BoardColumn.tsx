@@ -6,7 +6,7 @@ import {
 } from "@dnd-kit/sortable";
 import SortableBoard from "./SortableBoard";
 import TodoItem from "./TodoItem";
-import type { Board, Todo } from "../page";
+import type { Board, Todo } from "../../lib/types";
 
 type BoardColumnProps = {
   board: Board;

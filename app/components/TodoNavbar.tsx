@@ -1,6 +1,6 @@
 "use client";
 
-import type { Board } from "../page";
+import type { Board } from "../../lib/types";
 
 type TodoNavbarProps = {
   todoText: string;
@@ -43,7 +43,7 @@ export default function TodoNavbar({
           >
             {boards.map((board) => (
               <option key={board.id} value={board.id}>
-                {board.name.toUpperCase()}
+                {board.name}
               </option>
             ))}
           </select>
@@ -64,7 +64,7 @@ export default function TodoNavbar({
               onClick={onSignOut}
               className="px-3 sm:px-4 py-2 rounded-lg border border-slate-300 text-white text-xs sm:text-sm shadow-sm cursor-pointer bg-blue-600"
             >
-              Sign out
+             Sign out
             </button>
           )}
         </div>
