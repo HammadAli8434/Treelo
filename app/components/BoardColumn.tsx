@@ -18,6 +18,7 @@ type BoardColumnProps = {
   onCancelEdit: () => void;
   onDeleteTodo: (todoId: number) => void;
   setEditText: (text: string) => void;
+  onTodoClick?: (todo: Todo) => void;
 };
 
 export default function BoardColumn({
@@ -30,6 +31,7 @@ export default function BoardColumn({
   onCancelEdit,
   onDeleteTodo,
   setEditText,
+  onTodoClick,
 }: BoardColumnProps) {
   return (
     <SortableBoard id={`board-${board.id}`}>
@@ -63,6 +65,7 @@ export default function BoardColumn({
                       onCancelEdit={onCancelEdit}
                       onDelete={onDeleteTodo}
                       setEditText={setEditText}
+                      onClick={onTodoClick}
                     />
                   );
                 })}

@@ -4,22 +4,21 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabaseClient";
 export default function SignupPage() {
-
   const router = useRouter();
   const [checkingSession, setCheckingSession] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);  
-  
+  const [message, setMessage] = useState<string | null>(null);
+
   useEffect(() => {
     let isMounted = true;
     const check = async () => {
       const { data } = await supabase.auth.getSession();
-        if (!isMounted) return;
+      if (!isMounted) return;
       if (data.session) router.replace("/");
-      setCheckingSession(false);                        
+      setCheckingSession(false);
     };
     check();
     return () => {
@@ -49,7 +48,7 @@ export default function SignupPage() {
         setError(signUpError.message);
         return;
       }
-      
+
       if (data.session) {
         router.replace("/");
       } else {
@@ -63,7 +62,7 @@ export default function SignupPage() {
       setLoading(false);
     }
   };
- 
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-purple-700 from-blue-100 via-indigo-100 to-purple-100 px-6">
       <div className="w-full max-w-md rounded-2xl bg-white border border-slate-200 shadow-sm p-6">
@@ -135,4 +134,4 @@ export default function SignupPage() {
       </div>
     </div>
   );
-};
+}

@@ -14,6 +14,7 @@ type TodoItemProps = {
     onCancelEdit: () => void;
     onDelete: (todoId: number) => void;
     setEditText: (text: string) => void;
+    onClick?: (todo: Todo) => void;
 };
 
 export default function TodoItem({
@@ -26,6 +27,7 @@ export default function TodoItem({
     onCancelEdit,
     onDelete,
     setEditText,
+    onClick,
 }: TodoItemProps) {
     return (
         <SortableTodo id={`todo-${todo.id}`} todo={todo} boardId={boardId}>
@@ -52,7 +54,10 @@ export default function TodoItem({
                 </div>
             ) : (
                 <div className="flex justify-between w-full items-start">
-                    <span className="text-sm text-gray-700 flex-1 pr-2">{todo.content}</span>
+                    <span
+                        onClick={() => onClick && onClick(todo)}
+                        className="text-sm text-gray-700 flex-1 pr-2 cursor-pointer"
+                    >{todo.content}</span>
                     <div className="flex gap-3 mt-1">
                         <button
                             onClick={() => onStartEdit(todo.id, todo.content)}

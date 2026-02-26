@@ -130,9 +130,10 @@ export function useBoardData() {
     if (!text.trim() || boardId === null) return;
 
     const boardTodos = todosForBoard(boardId);
-    const nextPosition = boardTodos.length > 0
-      ? Math.max(...boardTodos.map((t) => t.position)) + 1
-      : 0;
+    const nextPosition =
+      boardTodos.length > 0
+        ? Math.max(...boardTodos.map((t) => t.position)) + 1
+        : 0;
 
     const { data, error } = await supabase
       .from("todos")
@@ -161,12 +162,37 @@ export function useBoardData() {
     setTodos((prev) => prev.filter((t) => t.id !== todoId));
   };
 
+  const updateTodoDescription = async (todoId: number, description: string) => {
+    // return both data and any error so callers can inspect
+    const { data, error } = await supabase
+      .from("todos")
+      .update({ description })
+      .eq("id", todoId)
+      .select()
+      .single();
+
+    console.log("updateTodoDescription() returned", { data, error, todoId, description });
+
+    if (error) {
+      console.error("Error updating todo description:", error);
+      // include message so UI can display it
+      return { data: null, error };
+    }
+
+    setTodos((prev) =>
+      prev.map((t) =>
+        t.id === todoId ? { ...t, description: data?.description ?? description } : t,
+      ),
+    );
+
+    return { data, error: null };
+  };
+
   const addBoard = async (name: string) => {
     if (!name.trim() || !userId) return;
 
-    const nextPosition = boards.length > 0
-      ? Math.max(...boards.map((b) => b.position)) + 1
-      : 0;
+    const nextPosition =
+      boards.length > 0 ? Math.max(...boards.map((b) => b.position)) + 1 : 0;
 
     const { data, error } = await supabase
       .from("boards")
@@ -209,5 +235,6 @@ export function useBoardData() {
     saveEdit,
     setBoards,
     setTodos,
+    updateTodoDescription,
   };
 }

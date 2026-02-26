@@ -1,26 +1,30 @@
 "use client";
-import {
+  import {                                                                             
   DndContext,
   PointerSensor,
   useSensor,
   useSensors,
   closestCorners,
 } from "@dnd-kit/core";
+
 import {
   SortableContext,
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
+  
 import TodoNavbar from "./TodoNavbar";
 import AddBoardModal from "./AddBoardModal";
+import TodoDetailModal from "./TodoDetailModal";
 import BoardColumn from "./BoardColumn";
 import BoardOverlays from "./BoardOverlays";
 import { supabase } from "../../lib/supabaseClient";
 import { useBoardData } from "../../lib/useBoardData";
 import { useDragHandlers } from "../../lib/useDragHandlers";
+import type { Todo } from "../../lib/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function Dashboard() {
+export default  function Dashboard() {
   const router = useRouter();
 
   const sensors = useSensors(
@@ -47,8 +51,9 @@ export default function Dashboard() {
     saveEdit,
     setBoards,
     setTodos,
+    updateTodoDescription,
   } = useBoardData();
-
+  
   const { activeBoard, activeTodo, onDragStart, onDragEnd } = useDragHandlers(
     boards,
     todos,
@@ -60,6 +65,10 @@ export default function Dashboard() {
   const [todoText, setTodoText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [newBoardName, setNewBoardName] = useState("");
+
+  const [showTodoModal, setShowTodoModal] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState<null | Todo>(null);
+  const [todoDescription, setTodoDescription] = useState("");
 
   const boardIds = boards.map((b) => `board-${b.id}`);
 
@@ -82,7 +91,7 @@ export default function Dashboard() {
           onAddTodo={() => {
             addTodo(todoText, selectedBoardId);
             setTodoText("");
-          }}
+         }}
           onAddBoardClick={() => setShowModal(true)}
           onSignOut={async () => {
             await supabase.auth.signOut();
@@ -111,6 +120,11 @@ export default function Dashboard() {
                   }}
                   onDeleteTodo={deleteTodo}
                   setEditText={setEditText}
+                  onTodoClick={(todo) => {
+                    setSelectedTodo(todo);
+                    setTodoDescription(todo.description ?? "");
+                    setShowTodoModal(true);
+                  }}
                 />
               ))}
             </div>
@@ -133,7 +147,23 @@ export default function Dashboard() {
             setShowModal(false);
           }}
         />
+        <TodoDetailModal
+          show={showTodoModal && selectedTodo !== null}
+          todo={selectedTodo}
+          description={todoDescription}
+          onDescriptionChange={setTodoDescription}
+          onCancel={() => setShowTodoModal(false)}
+          onSave={async () => {
+            if (selectedTodo) {
+              await updateTodoDescription(
+                selectedTodo.id,
+                todoDescription,
+              );
+              setShowTodoModal(false);
+            }
+          }}
+        />
       </div>
     </DndContext>
   );
-}
+};

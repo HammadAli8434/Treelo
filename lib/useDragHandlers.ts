@@ -113,7 +113,11 @@ export function useDragHandlers(
       const toIdx = boardTodos.findIndex((t) => t.position === targetPosition);
       if (fromIdx === -1 || fromIdx === toIdx) return;
 
-      const reordered = arrayMove(boardTodos, fromIdx, toIdx >= 0 ? toIdx : boardTodos.length - 1);
+      const reordered = arrayMove(
+        boardTodos,
+        fromIdx,
+        toIdx >= 0 ? toIdx : boardTodos.length - 1,
+      );
       const updatedTodos = reordered.map((t, i) => ({ ...t, position: i }));
 
       setTodos((prev) => {

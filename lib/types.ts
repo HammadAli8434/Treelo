@@ -4,12 +4,14 @@ export type Board = {
   position: number;
   user_id: string;
 };
-
+  
 export type Todo = {
   id: number;
   board_id: number;
   content: string;
   position: number;
+  // optional description for detailed view
+  description?: string;
 };
 
 export type EditingState = {
